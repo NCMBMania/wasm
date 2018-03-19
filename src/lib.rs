@@ -25,11 +25,10 @@ pub extern "C" fn dealloc_str(ptr: *mut c_char) {
 #[no_mangle]
 pub fn to_sign(ptr: *mut c_char) -> *mut c_char {
     let s: String;
-
     unsafe {
         s = CString::from_raw(ptr).into_string().unwrap();
     }
-    let key = "1343d198b510a0315db1c03f3aa0e32418b7a743f8e4b47cbff670601345cf75";
+    let key = "YOUR_CLIENT_KEY";
     let mut mac = hmac::Hmac::<sha2::Sha256>::new(key.as_bytes()).unwrap();
     let bytes = s.as_bytes();
     mac.input(bytes);
