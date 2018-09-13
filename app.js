@@ -9,7 +9,7 @@ window.onload = async () => {
 };
 
 document.addEventListener('DOMContentLoaded', async (e) => {
-  const applicationKey = 'e617bee762e6c0799d20bc3ef45ead1ee87c99276c482a3c5b6b90e013d8a669';
+  const applicationKey = 'APPLICATION_KEY';
   const ncmb = new NCMB(applicationKey, 'dummy');
   
   document.querySelector('#get').onclick = async (e) => {
