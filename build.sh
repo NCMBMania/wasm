@@ -1,5 +1,10 @@
-rustc +nightly --target wasm32-unknown-unknown src/main.rs --crate-type cdylib -o build/main.big.wasm \
-      -L 'dependency=/Volumes/SD/Dropbox (MOONGIFT)/moongift-team/DevRel/niftycloud_mb/wasm/ncmb/target/wasm32-unknown-unknown/debug/deps' \
-      --extern 'sha2=/Volumes/SD/Dropbox (MOONGIFT)/moongift-team/DevRel/niftycloud_mb/wasm/ncmb/target/wasm32-unknown-unknown/debug/deps/libsha2-31a2a575a333a920.rlib' \
-      --extern 'hmac=/Volumes/SD/Dropbox (MOONGIFT)/moongift-team/DevRel/niftycloud_mb/wasm/ncmb/target/wasm32-unknown-unknown/debug/deps/libhmac-5822f0c9a5ffae5c.rlib' \
-      --extern 'base64=/Volumes/SD/Dropbox (MOONGIFT)/moongift-team/DevRel/niftycloud_mb/wasm/ncmb/target/wasm32-unknown-unknown/debug/deps/libbase64-6d13b8204a11944e.rlib'
+docker run --rm -v $PWD/:/var/workspace ubuntu-wasm /bin/bash -c 'cargo +nightly build --target wasm32-unknown-unknown --release'
+cp target/wasm32-unknown-unknown/release/ncmb.wasm ./
+git clone git@github.com:NIFCloud-mbaas/ncmb_js.git
+cd ncmb_js
+sed -i 's/var sig = crypto/if \(window.wasm_sign\) return window.wasm_sign\(sigStr\);\
+  var sig = crypto/' lib/signature.js
+npm install
+npm run build
+cd ..
+cp ncmb_js/ncmb.min.js .

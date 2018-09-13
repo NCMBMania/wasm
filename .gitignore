@@ -3,3 +3,5 @@ ncmb.wasm
 target/
 .DS_Store
 Cargo.lock
+ncmb_js/
+ncmb.min.js
